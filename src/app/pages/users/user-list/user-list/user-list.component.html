@@ -1,0 +1,67 @@
+<mat-card class="" cardWithShadow>
+    <mat-card-content>
+        <div class="d-flex">
+            <div class="m-r-auto m-b-8">
+                <mat-card-title>Usuarios</mat-card-title>
+                <mat-card-subtitle>Listado</mat-card-subtitle>
+            </div>
+            <div>
+                <button mat-flat-button color="primary" class="m-r-8">Crear nuevo usuario</button>
+            </div>
+        </div>
+        <hr>
+        <div class="table-responsive">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th class="f-w-t600 f-s-14">Nombre</th>
+                        <th class="f-w-t600 f-s-14">Email</th>
+                        <th class="f-w-t600 f-s-14">Estado</th>
+                        <th class="f-w-t600 f-s-14">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let user of userList">
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.nombre }}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            @if(user.estado == 'Activo') {
+                            <span class="bg-light-success text-success rounded f-w-600 p-6 p-y-4 f-s-12">
+                                {{ user.estado }}
+                            </span>
+                            }
+                            @if(user.estado == 'Inactivo') {
+                            <span class="bg-light-warning text-warning rounded f-w-600 p-6 p-y-4 f-s-12">
+                                {{ user.estado }}
+                            </span>
+                            }
+                        </td>
+                        <td>
+                            <button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                </button>
+                                <button mat-menu-item>
+                                    <mat-icon>delete</mat-icon>
+                                    @if(user.estado == 'Activo') {
+                                    <span>Desactivar</span>
+                                    }@else{
+                                    <span>Activar</span>
+                                    }
+                                </button>
+                            </mat-menu>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>

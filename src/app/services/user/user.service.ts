@@ -17,4 +17,13 @@ export class UserService {
     const endpoint = `${this.api_url}/addUser`;
     return this.http.post(endpoint, user);
   }
+
+  getUsers(): Observable<User[]>{
+    const endpoint = this.api_url;
+    const headers = {
+      'Content-Type':"application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    }
+    return this.http.get<User[]>(endpoint,{headers});
+  }
 }
