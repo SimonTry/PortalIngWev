@@ -21,6 +21,11 @@ export const routes: Routes = [
         path:'users',
         loadChildren: ()=>
           import('./pages/users/user.routes').then((m) => m.UserRoutes)
+      },
+      {
+        path:'pedidos',
+        loadChildren: ()=>
+          import('./pages/pedido/pedido.routes').then((m) => m.PedidoRoutes)
       }
     ],
   },
