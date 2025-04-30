@@ -1,6 +1,9 @@
 export interface ProductoPedido{
     id: string;
+    nombre?: string;
+    precio?: number
     cantidad: number;
-    fecha: Date,
-    total: number
+    subtotal?:number;
+    fecha?: Date;
+    total?: number;
 }
