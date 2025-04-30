@@ -14,4 +14,9 @@ export const navItems: NavItem[] = [
     iconName: 'users',
     route: '/users',
   },
+  {
+    displayName: 'Pedido',
+    iconName: 'wheelchair-off',
+    route: '/pedidos/listado',
+  },
 ];

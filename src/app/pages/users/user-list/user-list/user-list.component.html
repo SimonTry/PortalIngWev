@@ -14,7 +14,7 @@
             <table class="w-100">
                 <thead>
                     <tr>
-                        <th>id</th>
+                        <th hidden>id</th>
                         <th class="f-w-t600 f-s-14">Nombre</th>
                         <th class="f-w-t600 f-s-14">Email</th>
                         <th class="f-w-t600 f-s-14">Estado</th>
@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let user of userList">
-                        <td>{{ user.id }}</td>
+                        <td hidden>{{ user.id }}</td>
                         <td>{{ user.nombre }}</td>
                         <td>{{user.email}}</td>
                         <td>

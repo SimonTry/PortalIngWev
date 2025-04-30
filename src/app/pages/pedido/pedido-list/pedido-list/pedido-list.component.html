@@ -1,0 +1,52 @@
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+        <div class="d-flex">
+            <div class="m-r-auto m-b-8">
+                <mat-card-title>Pedidos</mat-card-title>
+                <mat-card-subtitle>Listado</mat-card-subtitle>
+            </div>
+            <div>
+                <button mat-flat-button color="primary" class="m-r-8" (click)="goToAddPedido()">
+                    Crear nuevo pedido
+                </button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="w-100">
+                <thead>
+                    <tr>
+                        <th hidden>id</th>
+                        <th class="f-w-600 f-s-14">Cliente</th>
+                        <th class="f-w-600 f-s-14">Fecha</th>
+                        <th class="f-w-600 f-s-14">Total</th>
+                        <th class="f-w-600 f-s-14">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidoList">
+                        <td hidden>{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente }}</td>
+                        <td>{{ pedido.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>$ {{ pedido.total | number: '1.0-0' }}</td>
+                        <td>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menú acciones">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="editarPedido(pedido)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Editar</span>
+                                </button>
+                                <button mat-menu-item (click)="eliminarPedido(pedido)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Eliminar</span>
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>
