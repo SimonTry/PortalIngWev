@@ -19,5 +19,5 @@
     </mat-card-content>
 </mat-card>
 
-<app-producto-form></app-producto-form>
-<app-producto-list></app-producto-list>
+<app-producto-form (productoAgregado)="CuandoSeAgregaUnProducto($event)"></app-producto-form>
+<app-producto-list [productos]="productosAgregados"></app-producto-list>

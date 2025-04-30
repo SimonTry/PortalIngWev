@@ -6,6 +6,7 @@ import { Pedido } from 'src/app/models/pedido.model';
 import { ProductoFormComponent } from 'src/app/pages/productos/producto-form/producto-form/producto-form.component';
 import { ProductoListComponent } from 'src/app/pages/productos/producto-list/producto-list/producto-list.component';
 import { PedidoService } from 'src/app/services/pedido/pedido.service';
+import { ProductoPedido } from 'src/app/models/producto-pedido.model';
 
 @Component({
   selector: 'app-pedido-form',
@@ -15,6 +16,8 @@ import { PedidoService } from 'src/app/services/pedido/pedido.service';
 })
 export class PedidoFormComponent {
 
+  productosAgregados: ProductoPedido[] = [];
+
   constructor(private router: Router, private pedidoService: PedidoService){}
 
   formularioPedido = new FormGroup({
@@ -22,19 +25,27 @@ export class PedidoFormComponent {
   })
 
   guardarPedido(){
+ 
     //Debemos validar que si incluyan productos al carrito
-    if(this.formularioPedido.invalid){
-      const pedido: Pedido = {
-        cliente: this.formularioPedido.value.cliente!
+    if(this.formularioPedido.invalid) return;
+
+    const pedido: Pedido = {
+      cliente: this.formularioPedido.value.cliente!,
+      productos: this.productosAgregados
+    }
+
+    this.pedidoService.agregarPedido(pedido).subscribe({
+      next:(res)=>{
+        alert(`Se ha registrado el pedido con id`)
+        this.router.navigate(["/pedidos/listado"])
+      },error: (err)=>{
+        alert("Lo sentimos: " + err.error.mensajito)
       }
+    })
+      
+    }
 
-      this.pedidoService.agregarPedido(pedido).subscribe({
-        next:(res)=>{
-          alert(`Se ha registrado el pedido con id`)
-        },error: (err)=>{
-
-        }
-      })
+    CuandoSeAgregaUnProducto(obj :ProductoPedido){
+      this.productosAgregados.push(obj)
     }
   }
-}
