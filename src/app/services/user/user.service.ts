@@ -26,4 +26,33 @@ export class UserService {
     }
     return this.http.get<User[]>(endpoint,{headers});
   }
+
+  changeUserStatus(userId?: string, estado?: string){
+    const endpoint = `${this.api_url}/ChangeStatus/${userId}`;
+    const headers = {
+      'Content-Type':"application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    }
+    const body = {estado};
+    return this.http.post<User[]>(endpoint,body,{headers});
+  }
+
+
+  getUserById(id:string){
+    const endpoint = `${this.api_url}/${id}`;
+    const headers = {
+      'Content-Type':"application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    }
+    return this.http.get<User>(endpoint,{headers});
+  }
+
+  udpateUser(userId:string, userData: User){
+    const endpoint = `${this.api_url}/${userId}`;
+    const headers = {
+      'Content-Type':"application/json",
+      'Authorization': `Bearer ${localStorage.getItem('AuthToken')}`
+    }
+    return this.http.post<User>(endpoint,userData,{headers});
+  }
 }
