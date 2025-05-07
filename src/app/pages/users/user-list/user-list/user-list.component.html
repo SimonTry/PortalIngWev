@@ -44,11 +44,11 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>
                             <mat-menu #menu="matMenu">
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="goToUserForm(user.id)">
                                     <mat-icon>edit</mat-icon>
                                     <span>Edit</span>
                                 </button>
-                                <button mat-menu-item>
+                                <button mat-menu-item (click)="changeUserStatus(user)">
                                     <mat-icon>delete</mat-icon>
                                     @if(user.estado == 'Activo') {
                                     <span>Desactivar</span>
