@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { MaterialModule } from 'src/app/material.module';
 import { User } from 'src/app/models/user.model';
+import { AlertService } from 'src/app/services/alert/alert.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -17,7 +18,13 @@ export class UserFormComponent {
   editMode: boolean | false;
   userId: string;
   
-  constructor(private route: ActivatedRoute,private router:Router, private userService: UserService, private fb: FormBuilder){}
+  constructor(
+    private route: ActivatedRoute,
+    private router:Router, 
+    private userService: UserService, 
+    private fb: FormBuilder,
+    private alertService: AlertService
+  ){}
 
   initForm():void{
     this.form = this.fb.group({
@@ -64,8 +71,10 @@ export class UserFormComponent {
     if(this.editMode && this.userId){
       this.userService.udpateUser(this.userId, userData).subscribe({
         next:(user:User)=>{
-          alert("Se ha actualizado el usuario");
-          this.router.navigate(["/users"])
+          this.alertService.AlertaCuandoMelo("Excelente", "El usuario ha sido modificado correctamente").then((result) =>{
+            if(result.isConfirmed)
+              this.router.navigate(["/users"])
+          });
         }, error:()=>{
           console.log("Algo pasó mery wey");
         }

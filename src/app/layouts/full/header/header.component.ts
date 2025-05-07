@@ -10,6 +10,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { RouterModule, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-header',
@@ -28,10 +29,14 @@ export class HeaderComponent {
   @Input() toggleChecked = false;
   @Output() toggleMobileNav = new EventEmitter<void>();
 
-  constructor(private router: Router){}
+  constructor(private router: Router, private alertService: AlertService){}
 
   logOut(){
-    localStorage.removeItem('AuthToken');
-    this.router.navigate(['/authentication/login'])
+    this.alertService.alertaConCorfirmacion("Cuidadito", "¿Seguro que desea cerrar sesión?").then((objAlert) =>{
+      if(objAlert.isConfirmed){
+        localStorage.removeItem('AuthToken');
+        this.router.navigate(['/authentication/login'])
+      }
+    })
   }
 }
